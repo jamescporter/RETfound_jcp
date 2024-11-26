@@ -70,7 +70,7 @@ class FundusDataset(Dataset):
 # Main execution block
 if __name__ == '__main__':
     # 1. Load the model
-    chkpt_dir = '../models/RETFound_cfp_weights.pth'  # Adjust path as needed
+    chkpt_dir = '../models/Model_checkpoints/RETFound_cfp_weights.pth'  # Adjust path as needed
     model = prepare_model(chkpt_dir, 'vit_large_patch16')
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
