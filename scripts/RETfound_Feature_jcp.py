@@ -14,15 +14,15 @@ import pandas as pd  # Added import
 
 
 # 1. Load the model
-def prepare_model(chkpt_dir, arch='vit_large_patch16'):
+def prepare_model(chkpt_dir, arch = 'vit_large_patch16'):
     model = models_vit.__dict__[arch](
-        img_size=224,
-        num_classes=0,
-        drop_path_rate=0.0,
-        global_pool=True,
+        img_size = 224,
+        num_classes = 0,
+        drop_path_rate = 0.0,
+        global_pool = True,
     )
-    checkpoint = torch.load(chkpt_dir, map_location='cpu')
-    model.load_state_dict(checkpoint['model'], strict=False)
+    checkpoint = torch.load(chkpt_dir, map_location = 'cpu', weights_only = False)
+    model.load_state_dict(checkpoint['model'], strict = False)
     return model
 
 
@@ -77,6 +77,8 @@ if __name__ == '__main__':
     model.to(device)
     print('Model loaded successfully.')
 
+    model = torch.compile(model)  # JIT Compilation with torch.compile()
+
     # 4. Get image folder paths - subfolders must be inside imgs
     data_root = 'B:\\2024_PHD-DATA_CFP-imgs_cropped\\'
     image_dirs = [
@@ -102,10 +104,10 @@ if __name__ == '__main__':
     dataset = FundusDataset(image_paths)
     dataloader = DataLoader(
         dataset,
-        batch_size=batch_size,
-        shuffle=False,
-        num_workers=4,  # Adjust based on your CPU
-        pin_memory=True
+        batch_size = batch_size,
+        shuffle = False,
+        num_workers = 8,  # Adjust based on your CPU
+        pin_memory = True
     )
 
     # 6. Feature extraction
@@ -119,19 +121,19 @@ if __name__ == '__main__':
         batch_features = batch_features.cpu().numpy()  # Shape: [batch_size, feature_dim]
 
         for name, feature in zip(batch_names, batch_features):
-            row = {'image_name': name}
+            row = {'image_name':name}
             for idx, value in enumerate(feature):
                 row[f'feature_{idx}'] = value
             data_rows.append(row)
 
     # 7. Save features to CSV
-    output_dir = "E:\\PHD One Drive\\OneDrive - University of Edinburgh\\PHD_OUTPUT\\2024-10 RETfound features\output_imagenet\\"
-    os.makedirs(output_dir, exist_ok=True)
+    output_dir = "E:\\PHD One Drive\\OneDrive - University of Edinburgh\\_PHD_DATA_derived\\0.2.UKB_CFP_derived\\CFP_RFpt\\"
+    os.makedirs(output_dir, exist_ok = True)
     output_file = os.path.join(output_dir, 'features.csv')
 
     # Create DataFrame
     df = pd.DataFrame(data_rows)
-    df.set_index('image_name', inplace=True)
+    df.set_index('image_name', inplace = True)
 
     # Save to CSV
     df.to_csv(output_file)
