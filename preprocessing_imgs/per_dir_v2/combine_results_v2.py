@@ -53,26 +53,26 @@ def compute_final_stats(sum_pixels, sum_squares, total_pixels):
 
 
 global_mean, global_variance, global_std_dev = compute_final_stats(global_sum_pixels, global_sum_squares,
-                                                                   global_total_pixels)
+    global_total_pixels)
 
 # Combine results into a DataFrame
 global_stats = pd.DataFrame({
-    'global_mean_R': [global_mean[0]],
-    'global_mean_G': [global_mean[1]],
-    'global_mean_B': [global_mean[2]],
-    'global_variance_R': [global_variance[0]],
-    'global_variance_G': [global_variance[1]],
-    'global_variance_B': [global_variance[2]],
-    'global_std_dev_R': [global_std_dev[0]],
-    'global_std_dev_G': [global_std_dev[1]],
-    'global_std_dev_B': [global_std_dev[2]],
+    'global_mean_R':      [global_mean[0]],
+    'global_mean_G':      [global_mean[1]],
+    'global_mean_B':      [global_mean[2]],
+    'global_variance_R':  [global_variance[0]],
+    'global_variance_G':  [global_variance[1]],
+    'global_variance_B':  [global_variance[2]],
+    'global_std_dev_R':   [global_std_dev[0]],
+    'global_std_dev_G':   [global_std_dev[1]],
+    'global_std_dev_B':   [global_std_dev[2]],
     'global_min_pixel_R': [global_min_pixel[0]],
     'global_min_pixel_G': [global_min_pixel[1]],
     'global_min_pixel_B': [global_min_pixel[2]],
     'global_max_pixel_R': [global_max_pixel[0]],
     'global_max_pixel_G': [global_max_pixel[1]],
     'global_max_pixel_B': [global_max_pixel[2]],
-    'global_total_pixels': [global_total_pixels]
+    'global_total_pixels':[global_total_pixels]
 })
 
 # Print the final global statistics
@@ -99,7 +99,7 @@ print(f"Combined DataFrame rows: {len(all_old_stats)}")
 
 # Split multi-value columns into separate columns
 for column in tqdm(['median', 'min_pixel', 'max_pixel', 'skewness', 'kurtosis'], desc="Splitting Columns",
-                   unit="column"):
+        unit="column"):
     all_old_stats[[f"{column}_R", f"{column}_G", f"{column}_B"]] = all_old_stats[column].str.strip('[]').str.split(
         expand=True).astype(float)
     all_old_stats.drop(columns=[column], inplace=True)
