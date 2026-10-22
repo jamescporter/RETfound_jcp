@@ -1,3 +1,17 @@
+# RETFound — JCP research working copy
+
+This repository is a **personal research copy** of [RETFound](https://github.com/rmaphoh/RETFound_MAE), maintained for retinal-image modelling experiments. **It is not the official RETFound repository.**
+
+The original model implementation and its documentation are retained here alongside local work, including `calculate_cfp_statistics.py`, a helper for extracting summary statistics from colour fundus images. The separate [`Unofficial_RETFound_pip`](https://github.com/jamescporter/Unofficial_RETFound_pip) repository is intended for Python package installation.
+
+For the authoritative upstream implementation, model-weight links, citation and usage guidance, consult [the original RETFound project](https://github.com/rmaphoh/RETFound_MAE) and its associated paper. Review dependency and checkpoint compatibility before reusing scripts from this working copy.
+
+The upstream README is preserved below for reference. Its references to the "official repo", upstream maintainers, and installation commands describe **the upstream project**, not this personal repository.
+
+---
+
+## Retained upstream README
+
 ## RETFound - A foundation model for retinal imaging
 
 Official repo
